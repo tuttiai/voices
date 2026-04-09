@@ -1,0 +1,11 @@
+{
+  "official": [
+    { "name": "notion", "package": "@tuttiai/voice-notion", "description": "Read and write Notion pages" },
+    { "name": "github", "package": "@tuttiai/voice-github", "description": "Manage issues, PRs, repos" },
+    { "name": "playwright", "package": "@tuttiai/voice-playwright", "description": "Browser automation and QA" },
+    { "name": "slack", "package": "@tuttiai/voice-slack", "description": "Send and read Slack messages" },
+    { "name": "linear", "package": "@tuttiai/voice-linear", "description": "Manage Linear issues" },
+    { "name": "figma", "package": "@tuttiai/voice-figma", "description": "Read Figma designs" }
+  ],
+  "community": []
+}
