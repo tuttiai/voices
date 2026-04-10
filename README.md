@@ -7,12 +7,7 @@ Anyone can compose a voice and submit it here.
 
 | Voice | Package | Description |
 |---|---|---|
-| Notion | `@tuttiai/voice-notion` | Read and write Notion pages |
-| GitHub | `@tuttiai/voice-github` | Manage issues, PRs, repos |
-| Playwright | `@tuttiai/voice-playwright` | Browser automation and QA |
-| Slack | `@tuttiai/voice-slack` | Send and read Slack messages |
-| Linear | `@tuttiai/voice-linear` | Manage Linear issues |
-| Figma | `@tuttiai/voice-figma` | Read Figma designs |
+| filesystem | `@tuttiai/filesystem` | Read and write files on the local filesystem |
 
 ## Submit your voice
 

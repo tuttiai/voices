@@ -1,11 +1,14 @@
 {
   "official": [
-    { "name": "notion", "package": "@tuttiai/voice-notion", "description": "Read and write Notion pages" },
-    { "name": "github", "package": "@tuttiai/voice-github", "description": "Manage issues, PRs, repos" },
-    { "name": "playwright", "package": "@tuttiai/voice-playwright", "description": "Browser automation and QA" },
-    { "name": "slack", "package": "@tuttiai/voice-slack", "description": "Send and read Slack messages" },
-    { "name": "linear", "package": "@tuttiai/voice-linear", "description": "Manage Linear issues" },
-    { "name": "figma", "package": "@tuttiai/voice-figma", "description": "Read Figma designs" }
+    {
+      "name": "filesystem",
+      "package": "@tuttiai/filesystem",
+      "description": "Read and write files on the local filesystem",
+      "repo": "https://github.com/tuttiai/tutti/tree/main/voices/filesystem",
+      "version": "0.1.0",
+      "author": "tuttiai",
+      "tags": ["filesystem", "files", "io", "read", "write"]
+    }
   ],
   "community": []
 }
