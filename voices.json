@@ -17,6 +17,15 @@
       "version": "0.1.0",
       "author": "tuttiai",
       "tags": ["github", "git", "issues", "pull-requests", "code"]
+    },
+    {
+      "name": "playwright",
+      "package": "@tuttiai/playwright",
+      "description": "Control a browser like a human for QA and automation",
+      "repo": "https://github.com/tuttiai/tutti/tree/main/voices/playwright",
+      "version": "0.1.0",
+      "author": "tuttiai",
+      "tags": ["playwright", "browser", "qa", "testing", "automation"]
     }
   ],
   "community": []

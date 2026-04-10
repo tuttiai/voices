@@ -9,6 +9,7 @@ Anyone can compose a voice and submit it here.
 |---|---|---|
 | filesystem | `@tuttiai/filesystem` | Read and write files on the local filesystem |
 | github | `@tuttiai/github` | Interact with GitHub repositories, issues, and pull requests |
+| playwright | `@tuttiai/playwright` | Control a browser like a human for QA and automation |
 
 ## Submit your voice
 
