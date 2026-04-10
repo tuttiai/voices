@@ -8,6 +8,7 @@ Anyone can compose a voice and submit it here.
 | Voice | Package | Description |
 |---|---|---|
 | filesystem | `@tuttiai/filesystem` | Read and write files on the local filesystem |
+| github | `@tuttiai/github` | Interact with GitHub repositories, issues, and pull requests |
 
 ## Submit your voice
 
