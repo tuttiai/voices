@@ -27,6 +27,15 @@
       "author": "tuttiai",
       "tags": ["playwright", "browser", "qa", "testing", "automation"]
     }
+    ,{
+      "name": "mcp",
+      "package": "tuttiai-mcp",
+      "description": "Wrap any MCP server as a Tutti voice",
+      "repo": "https://github.com/tuttiai/tutti/tree/main/voices/mcp",
+      "version": "0.1.0",
+      "author": "tuttiai",
+      "tags": ["mcp", "bridge", "protocol"]
+    }
   ],
   "community": []
 }
