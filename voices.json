@@ -35,6 +35,15 @@
       "version": "0.1.0",
       "author": "tuttiai",
       "tags": ["mcp", "bridge", "protocol"]
+    },
+    {
+      "name": "slack",
+      "package": "@tuttiai/slack",
+      "description": "Read, post and moderate Slack messages via a bot token",
+      "repo": "https://github.com/tuttiai/tutti/tree/main/voices/slack",
+      "version": "0.1.0",
+      "author": "tuttiai",
+      "tags": ["slack", "chat", "messaging", "bot", "workspace"]
     }
   ],
   "community": []
