@@ -53,6 +53,15 @@
       "version": "0.1.0",
       "author": "tuttiai",
       "tags": ["postgres", "postgresql", "database", "sql", "analytics"]
+    },
+    {
+      "name": "stripe",
+      "package": "@tuttiai/stripe",
+      "description": "Read and write Stripe data: customers, payments, subscriptions, invoices, balance",
+      "repo": "https://github.com/tuttiai/tutti/tree/main/voices/stripe",
+      "version": "0.1.0",
+      "author": "tuttiai",
+      "tags": ["stripe", "payments", "billing", "subscriptions", "invoices"]
     }
   ],
   "community": []
