@@ -1,12 +1,26 @@
 {
+  "$schema": "./voices.schema.json",
   "official": [
+    {
+      "name": "discord",
+      "package": "@tuttiai/discord",
+      "description": "Read, post and moderate Discord messages from agents",
+      "repo": "https://github.com/tuttiai/tutti/tree/main/voices/discord",
+      "version": "0.1.0",
+      "author": "tuttiai",
+      "permissions": ["network"],
+      "tools_count": 11,
+      "tags": ["discord", "chat", "messaging", "bot", "community"]
+    },
     {
       "name": "filesystem",
       "package": "@tuttiai/filesystem",
-      "description": "Read and write files on the local filesystem",
+      "description": "Read, write, search, and manage files on the local filesystem",
       "repo": "https://github.com/tuttiai/tutti/tree/main/voices/filesystem",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "author": "tuttiai",
+      "permissions": ["filesystem"],
+      "tools_count": 7,
       "tags": ["filesystem", "files", "io", "read", "write"]
     },
     {
@@ -14,36 +28,33 @@
       "package": "@tuttiai/github",
       "description": "Interact with GitHub repositories, issues, and pull requests",
       "repo": "https://github.com/tuttiai/tutti/tree/main/voices/github",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "author": "tuttiai",
+      "permissions": ["network"],
+      "tools_count": 10,
       "tags": ["github", "git", "issues", "pull-requests", "code"]
+    },
+    {
+      "name": "mcp",
+      "package": "@tuttiai/mcp",
+      "description": "Wrap any MCP server as a Tutti voice — tools discovered at runtime",
+      "repo": "https://github.com/tuttiai/tutti/tree/main/voices/mcp",
+      "version": "0.1.1",
+      "author": "tuttiai",
+      "permissions": ["network"],
+      "tools_count": "dynamic",
+      "tags": ["mcp", "bridge", "protocol"]
     },
     {
       "name": "playwright",
       "package": "@tuttiai/playwright",
       "description": "Control a browser like a human for QA and automation",
       "repo": "https://github.com/tuttiai/tutti/tree/main/voices/playwright",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "author": "tuttiai",
+      "permissions": ["network", "browser"],
+      "tools_count": 12,
       "tags": ["playwright", "browser", "qa", "testing", "automation"]
-    }
-    ,{
-      "name": "mcp",
-      "package": "@tuttiai/mcp",
-      "description": "Wrap any MCP server as a Tutti voice",
-      "repo": "https://github.com/tuttiai/tutti/tree/main/voices/mcp",
-      "version": "0.1.0",
-      "author": "tuttiai",
-      "tags": ["mcp", "bridge", "protocol"]
-    },
-    {
-      "name": "slack",
-      "package": "@tuttiai/slack",
-      "description": "Read, post and moderate Slack messages via a bot token",
-      "repo": "https://github.com/tuttiai/tutti/tree/main/voices/slack",
-      "version": "0.1.0",
-      "author": "tuttiai",
-      "tags": ["slack", "chat", "messaging", "bot", "workspace"]
     },
     {
       "name": "postgres",
@@ -52,7 +63,42 @@
       "repo": "https://github.com/tuttiai/tutti/tree/main/voices/postgres",
       "version": "0.1.0",
       "author": "tuttiai",
+      "permissions": ["network"],
+      "tools_count": 8,
       "tags": ["postgres", "postgresql", "database", "sql", "analytics"]
+    },
+    {
+      "name": "rag",
+      "package": "@tuttiai/rag",
+      "description": "Retrieval-augmented generation: ingest, search, and manage a knowledge base",
+      "repo": "https://github.com/tuttiai/tutti/tree/main/voices/rag",
+      "version": "0.1.0",
+      "author": "tuttiai",
+      "permissions": ["network"],
+      "tools_count": 4,
+      "tags": ["rag", "embeddings", "knowledge-base", "search", "pgvector"]
+    },
+    {
+      "name": "sandbox",
+      "package": "@tuttiai/sandbox",
+      "description": "Secure code execution for TypeScript, Python, and Bash in a sandboxed subprocess",
+      "repo": "https://github.com/tuttiai/tutti/tree/main/voices/sandbox",
+      "version": "0.1.1",
+      "author": "tuttiai",
+      "permissions": ["shell"],
+      "tools_count": 4,
+      "tags": ["sandbox", "code-execution", "typescript", "python", "bash"]
+    },
+    {
+      "name": "slack",
+      "package": "@tuttiai/slack",
+      "description": "Read, post and moderate Slack messages via a bot token",
+      "repo": "https://github.com/tuttiai/tutti/tree/main/voices/slack",
+      "version": "0.1.0",
+      "author": "tuttiai",
+      "permissions": ["network"],
+      "tools_count": 11,
+      "tags": ["slack", "chat", "messaging", "bot", "workspace"]
     },
     {
       "name": "stripe",
@@ -61,7 +107,31 @@
       "repo": "https://github.com/tuttiai/tutti/tree/main/voices/stripe",
       "version": "0.1.0",
       "author": "tuttiai",
+      "permissions": ["network"],
+      "tools_count": 27,
       "tags": ["stripe", "payments", "billing", "subscriptions", "invoices"]
+    },
+    {
+      "name": "twitter",
+      "package": "@tuttiai/twitter",
+      "description": "Post, read, search and manage Twitter/X content from agents",
+      "repo": "https://github.com/tuttiai/tutti/tree/main/voices/twitter",
+      "version": "0.1.0",
+      "author": "tuttiai",
+      "permissions": ["network"],
+      "tools_count": 9,
+      "tags": ["twitter", "x", "social", "posting"]
+    },
+    {
+      "name": "web",
+      "package": "@tuttiai/web",
+      "description": "Search the web, fetch pages, and read sitemaps with Brave, Serper, or DuckDuckGo",
+      "repo": "https://github.com/tuttiai/tutti/tree/main/voices/web",
+      "version": "0.1.1",
+      "author": "tuttiai",
+      "permissions": ["network"],
+      "tools_count": 3,
+      "tags": ["web", "search", "fetch", "scraping", "sitemap"]
     }
   ],
   "community": []
