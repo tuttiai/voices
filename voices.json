@@ -44,6 +44,15 @@
       "version": "0.1.0",
       "author": "tuttiai",
       "tags": ["slack", "chat", "messaging", "bot", "workspace"]
+    },
+    {
+      "name": "postgres",
+      "package": "@tuttiai/postgres",
+      "description": "Query and inspect a PostgreSQL database (read-only by default; writes via destructive 'execute' tool)",
+      "repo": "https://github.com/tuttiai/tutti/tree/main/voices/postgres",
+      "version": "0.1.0",
+      "author": "tuttiai",
+      "tags": ["postgres", "postgresql", "database", "sql", "analytics"]
     }
   ],
   "community": []

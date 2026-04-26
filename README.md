@@ -11,6 +11,7 @@ Anyone can compose a voice and submit it here.
 | github | `@tuttiai/github` | Interact with GitHub repositories, issues, and pull requests |
 | playwright | `@tuttiai/playwright` | Control a browser like a human for QA and automation |
 | slack | `@tuttiai/slack` | Read, post and moderate Slack messages via a bot token |
+| postgres | `@tuttiai/postgres` | Query and inspect a PostgreSQL database (read-only by default) |
 
 ## Submit your voice
 
