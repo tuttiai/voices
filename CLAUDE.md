@@ -9,10 +9,40 @@ These are rules, not suggestions. They apply to every Tutti AI repo.
 
 ---
 
+## Read this before your first edit
+
+One rule comes before all the others.
+
+### Take a worktree — never work in the canonical clone
+
+Several agents work these repos at once. `repos/<name>` is a single checkout with one index and
+one checked-out branch, so two agents in it fight: one `git checkout` moves the ground under the
+other, and staged work gets committed by whoever runs `git commit` first.
+
+```bash
+node scripts/worktree.mjs add tutti feat/session-index   # from the workspace root
+cd worktrees/tutti/feat-session-index
+```
+
+- **The path `worktrees/<repo>/<slug>` is load-bearing, not tidiness.** The hooks read the repo's
+  identity out of that path. A worktree made by hand somewhere else either escapes the leak scan
+  or lands outside the workspace where no hook runs at all. Use the script.
+- `node scripts/worktree.mjs list` shows what every other agent holds. Do not touch a branch that
+  is checked out in someone else's worktree.
+- Remove it when the branch has landed: `node scripts/worktree.mjs remove <repo> <slug>`. The
+  branch survives; only the checkout goes.
+- **Exception:** the workspace meta-repo itself is edited in place. A worktree of it would carry
+  no submodules, so it is not offered.
+- `repos/<name>` is for reading, and for the submodule-pin commit that moves what the workspace
+  tracks. Nothing else.
+
+---
+
 ## Pre-flight checklist
 
 Before every edit, verify all of the following:
 
+- [ ] Working in `worktrees/<repo>/<slug>`, not in `repos/<name>`
 - [ ] No `any` type introduced — use `unknown` + type guards
 - [ ] No direct `process.env` — use `SecretsManager.require()` / `.optional()`
 - [ ] No API keys in logs, events, errors, or tool results
