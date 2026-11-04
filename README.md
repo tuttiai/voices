@@ -320,4 +320,4 @@ A maintainer reviews the package surface (no malware, no obvious security holes,
 
 ## Reporting a malicious or broken voice
 
-Open an issue with the `voice:report` label, or email security@tutti.ai for anything sensitive. Listed voices that go unmaintained for >12 months may be moved to an `archived` section.
+Open an issue with the `voice:report` label, or, for anything sensitive, email security@tutti-ai.com as described in [Tutti's security policy](https://github.com/tuttiai/tutti/blob/main/SECURITY.md). Listed voices that go unmaintained for >12 months may be moved to an `archived` section.
