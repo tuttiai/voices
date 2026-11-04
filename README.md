@@ -44,8 +44,8 @@ npx tutti-ai add @yourscope/your-voice
 
 The full reference lives in the Tutti docs:
 
-- [Building a Voice](https://docs.tutti-ai.com/guides/building-a-voice/) — quick walkthrough
-- [Voice Authoring Guide](https://docs.tutti-ai.com/contributing/voice-authoring/) — comprehensive reference
+- [Building a Voice](https://tutti-ai.com/docs/guides/building-a-voice/) — quick walkthrough
+- [Voice Authoring Guide](https://tutti-ai.com/docs/contributing/voice-authoring/) — comprehensive reference
 
 The rest of this section is a self-contained crash course covering everything you need to publish a voice and get it merged into this registry.
 
