@@ -44,8 +44,8 @@ npx tutti-ai add @yourscope/your-voice
 
 The full reference lives in the Tutti docs:
 
-- [Building a Voice](https://tutti.ai/guides/building-a-voice) — quick walkthrough
-- [Voice Authoring Guide](https://tutti.ai/contributing/voice-authoring) — comprehensive reference
+- [Building a Voice](https://tutti-ai.com/docs/guides/building-a-voice/) — quick walkthrough
+- [Voice Authoring Guide](https://tutti-ai.com/docs/contributing/voice-authoring/) — comprehensive reference
 
 The rest of this section is a self-contained crash course covering everything you need to publish a voice and get it merged into this registry.
 
@@ -320,4 +320,4 @@ A maintainer reviews the package surface (no malware, no obvious security holes,
 
 ## Reporting a malicious or broken voice
 
-Open an issue with the `voice:report` label, or email security@tutti.ai for anything sensitive. Listed voices that go unmaintained for >12 months may be moved to an `archived` section.
+Open an issue with the `voice:report` label, or, for anything sensitive, email security@tutti-ai.com as described in [Tutti's security policy](https://github.com/tuttiai/tutti/blob/main/SECURITY.md). Listed voices that go unmaintained for >12 months may be moved to an `archived` section.
