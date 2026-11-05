@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Tutti voice registry",
+  "description": "The Repertoire: official and community voices for the Tutti framework, read by tutti-ai search.",
+  "type": "object",
+  "required": ["official", "community"],
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "official": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/voice" }
+    },
+    "community": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/voice" }
+    }
+  },
+  "additionalProperties": false,
+  "definitions": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "voice": {
+      "type": "object",
+      "required": [
+        "name",
+        "package",
+        "description",
+        "repo",
+        "version",
+        "author",
+        "permissions",
+        "tools_count",
+        "tags"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/definitions/slug",
+          "description": "Shorthand used by tutti-ai add for official voices."
+        },
+        "package": {
+          "type": "string",
+          "pattern": "^(@[a-z0-9-~][a-z0-9-._~]*/)?[a-z0-9-~][a-z0-9-._~]*$",
+          "description": "npm package name."
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "repo": {
+          "type": "string",
+          "pattern": "^https://",
+          "description": "Source location of the voice."
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(-[0-9A-Za-z.-]+)?(\\+[0-9A-Za-z.-]+)?$",
+          "description": "Semantic version of the package."
+        },
+        "author": {
+          "type": "string",
+          "minLength": 1
+        },
+        "permissions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": ["network", "filesystem", "shell", "browser"]
+          },
+          "description": "The voice's required_permissions, matching the Permission type in @tuttiai/types."
+        },
+        "tools_count": {
+          "oneOf": [
+            { "type": "integer", "minimum": 1 },
+            { "const": "dynamic" }
+          ],
+          "description": "Number of tools the voice registers, or \"dynamic\" when they are discovered at runtime."
+        },
+        "tags": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 6,
+          "uniqueItems": true,
+          "items": { "$ref": "#/definitions/slug" }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
