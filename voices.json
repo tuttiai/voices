@@ -6,11 +6,22 @@
       "package": "@tuttiai/discord",
       "description": "Read, post and moderate Discord messages from agents",
       "repo": "https://github.com/tuttiai/tutti/tree/main/voices/discord",
-      "version": "0.1.0",
+      "version": "0.1.2",
       "author": "tuttiai",
       "permissions": ["network"],
       "tools_count": 11,
       "tags": ["discord", "chat", "messaging", "bot", "community"]
+    },
+    {
+      "name": "email",
+      "package": "@tuttiai/email",
+      "description": "Read and send email via IMAP IDLE + SMTP; shared client for @tuttiai/inbox",
+      "repo": "https://github.com/tuttiai/tutti/tree/main/voices/email",
+      "version": "0.1.1",
+      "author": "tuttiai",
+      "permissions": ["network"],
+      "tools_count": 3,
+      "tags": ["email", "imap", "smtp", "messaging", "inbox"]
     },
     {
       "name": "filesystem",
@@ -28,29 +39,51 @@
       "package": "@tuttiai/github",
       "description": "Interact with GitHub repositories, issues, and pull requests",
       "repo": "https://github.com/tuttiai/tutti/tree/main/voices/github",
-      "version": "0.1.1",
+      "version": "0.2.0",
       "author": "tuttiai",
       "permissions": ["network"],
-      "tools_count": 10,
+      "tools_count": 23,
       "tags": ["github", "git", "issues", "pull-requests", "code"]
+    },
+    {
+      "name": "knowledge",
+      "package": "@tuttiai/knowledge",
+      "description": "Search knowledge bases a knowledge service holds for the agent, read-only",
+      "repo": "https://github.com/tuttiai/tutti/tree/main/voices/knowledge",
+      "version": "0.1.0",
+      "author": "tuttiai",
+      "permissions": ["network"],
+      "tools_count": 2,
+      "tags": ["knowledge", "knowledge-base", "search", "read-only"]
     },
     {
       "name": "mcp",
       "package": "@tuttiai/mcp",
       "description": "Wrap any MCP server as a Tutti voice — tools discovered at runtime",
       "repo": "https://github.com/tuttiai/tutti/tree/main/voices/mcp",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "author": "tuttiai",
       "permissions": ["network"],
       "tools_count": "dynamic",
       "tags": ["mcp", "bridge", "protocol"]
     },
     {
+      "name": "notion",
+      "package": "@tuttiai/notion",
+      "description": "Search, read and write the Notion pages and databases shared with an integration",
+      "repo": "https://github.com/tuttiai/tutti/tree/main/voices/notion",
+      "version": "0.1.0",
+      "author": "tuttiai",
+      "permissions": ["network"],
+      "tools_count": 8,
+      "tags": ["notion", "docs", "pages", "databases", "wiki"]
+    },
+    {
       "name": "playwright",
       "package": "@tuttiai/playwright",
       "description": "Control a browser like a human for QA and automation",
       "repo": "https://github.com/tuttiai/tutti/tree/main/voices/playwright",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "author": "tuttiai",
       "permissions": ["network", "browser"],
       "tools_count": 12,
@@ -61,7 +94,7 @@
       "package": "@tuttiai/postgres",
       "description": "Query and inspect a PostgreSQL database (read-only by default; writes via destructive 'execute' tool)",
       "repo": "https://github.com/tuttiai/tutti/tree/main/voices/postgres",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "author": "tuttiai",
       "permissions": ["network"],
       "tools_count": 8,
@@ -72,7 +105,7 @@
       "package": "@tuttiai/rag",
       "description": "Retrieval-augmented generation: ingest, search, and manage a knowledge base",
       "repo": "https://github.com/tuttiai/tutti/tree/main/voices/rag",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "author": "tuttiai",
       "permissions": ["network"],
       "tools_count": 4,
@@ -86,15 +119,26 @@
       "version": "0.1.1",
       "author": "tuttiai",
       "permissions": ["shell"],
-      "tools_count": 4,
+      "tools_count": 5,
       "tags": ["sandbox", "code-execution", "typescript", "python", "bash"]
+    },
+    {
+      "name": "sender",
+      "package": "@tuttiai/sender",
+      "description": "Manage Sender (sender.net) email marketing from agents: subscribers, groups and campaigns",
+      "repo": "https://github.com/tuttiai/tutti/tree/main/voices/sender",
+      "version": "0.1.0",
+      "author": "tuttiai",
+      "permissions": ["network"],
+      "tools_count": 14,
+      "tags": ["sender", "email", "marketing", "newsletters", "campaigns"]
     },
     {
       "name": "slack",
       "package": "@tuttiai/slack",
       "description": "Read, post and moderate Slack messages via a bot token",
       "repo": "https://github.com/tuttiai/tutti/tree/main/voices/slack",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "author": "tuttiai",
       "permissions": ["network"],
       "tools_count": 11,
@@ -110,6 +154,17 @@
       "permissions": ["network"],
       "tools_count": 27,
       "tags": ["stripe", "payments", "billing", "subscriptions", "invoices"]
+    },
+    {
+      "name": "telegram",
+      "package": "@tuttiai/telegram",
+      "description": "Read, post and moderate Telegram messages from agents; shared bot client for @tuttiai/inbox",
+      "repo": "https://github.com/tuttiai/tutti/tree/main/voices/telegram",
+      "version": "0.1.0",
+      "author": "tuttiai",
+      "permissions": ["network"],
+      "tools_count": 4,
+      "tags": ["telegram", "chat", "messaging", "bot", "inbox"]
     },
     {
       "name": "twitter",
@@ -132,6 +187,17 @@
       "permissions": ["network"],
       "tools_count": 3,
       "tags": ["web", "search", "fetch", "scraping", "sitemap"]
+    },
+    {
+      "name": "whatsapp",
+      "package": "@tuttiai/whatsapp",
+      "description": "Send and receive WhatsApp messages via Meta's Cloud API; shared webhook server for @tuttiai/inbox",
+      "repo": "https://github.com/tuttiai/tutti/tree/main/voices/whatsapp",
+      "version": "0.1.0",
+      "author": "tuttiai",
+      "permissions": ["network"],
+      "tools_count": 2,
+      "tags": ["whatsapp", "chat", "messaging", "meta", "inbox"]
     }
   ],
   "community": []
