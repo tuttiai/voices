@@ -8,22 +8,28 @@ A **voice** is an npm package that gives an agent the ability to interact with a
 
 ## Official voices
 
-12 official voices, 116+ tools.
+18 official voices, 153+ tools.
 
-| Voice | Package | Tools | Permissions | What it gives the agent |
-|---|---|---|---|---|
-| [discord](https://github.com/tuttiai/tutti/tree/main/voices/discord) | `@tuttiai/discord` | 11 | `network` | Read, post and moderate Discord messages |
-| [filesystem](https://github.com/tuttiai/tutti/tree/main/voices/filesystem) | `@tuttiai/filesystem` | 7 | `filesystem` | Read, write, search, and manage local files |
-| [github](https://github.com/tuttiai/tutti/tree/main/voices/github) | `@tuttiai/github` | 10 | `network` | Issues, PRs, repos, code search via the GitHub API |
-| [mcp](https://github.com/tuttiai/tutti/tree/main/voices/mcp) | `@tuttiai/mcp` | dynamic | `network` | Wrap any MCP server — tools discovered at runtime |
-| [playwright](https://github.com/tuttiai/tutti/tree/main/voices/playwright) | `@tuttiai/playwright` | 12 | `network`, `browser` | Browser automation: navigate, click, type, screenshot |
-| [postgres](https://github.com/tuttiai/tutti/tree/main/voices/postgres) | `@tuttiai/postgres` | 8 | `network` | Query and inspect a PostgreSQL database (read-only by default) |
-| [rag](https://github.com/tuttiai/tutti/tree/main/voices/rag) | `@tuttiai/rag` | 4 | `network` | Retrieval-augmented generation over your own docs |
-| [sandbox](https://github.com/tuttiai/tutti/tree/main/voices/sandbox) | `@tuttiai/sandbox` | 4 | `shell` | Execute TypeScript, Python, or Bash in a sandboxed subprocess |
-| [slack](https://github.com/tuttiai/tutti/tree/main/voices/slack) | `@tuttiai/slack` | 11 | `network` | Read, post and moderate Slack messages via a bot token |
-| [stripe](https://github.com/tuttiai/tutti/tree/main/voices/stripe) | `@tuttiai/stripe` | 27 | `network` | Customers, payments, subscriptions, invoices, balance |
-| [twitter](https://github.com/tuttiai/tutti/tree/main/voices/twitter) | `@tuttiai/twitter` | 9 | `network` | Post, read, search and manage Twitter/X content |
-| [web](https://github.com/tuttiai/tutti/tree/main/voices/web) | `@tuttiai/web` | 3 | `network` | Search the web, fetch pages, read sitemaps |
+| Voice | Package | Version | Tools | Permissions | What it gives the agent |
+|---|---|---|---|---|---|
+| [discord](https://github.com/tuttiai/tutti/tree/main/voices/discord) | `@tuttiai/discord` | 0.1.2 | 11 | `network` | Read, post and moderate Discord messages |
+| [email](https://github.com/tuttiai/tutti/tree/main/voices/email) | `@tuttiai/email` | 0.1.1 | 3 | `network` | Read and send email over IMAP and SMTP |
+| [filesystem](https://github.com/tuttiai/tutti/tree/main/voices/filesystem) | `@tuttiai/filesystem` | 0.1.1 | 7 | `filesystem` | Read, write, search, and manage local files |
+| [github](https://github.com/tuttiai/tutti/tree/main/voices/github) | `@tuttiai/github` | 0.2.0 | 23 | `network` | Issues, PRs, repos, code search via the GitHub API |
+| [knowledge](https://github.com/tuttiai/tutti/tree/main/voices/knowledge) | `@tuttiai/knowledge` | 0.1.0 | 2 | `network` | Search knowledge bases held by a knowledge service (read-only) |
+| [mcp](https://github.com/tuttiai/tutti/tree/main/voices/mcp) | `@tuttiai/mcp` | 0.1.2 | dynamic | `network` | Wrap any MCP server: tools discovered at runtime |
+| [notion](https://github.com/tuttiai/tutti/tree/main/voices/notion) | `@tuttiai/notion` | 0.1.0 | 8 | `network` | Search, read and write shared Notion pages and databases |
+| [playwright](https://github.com/tuttiai/tutti/tree/main/voices/playwright) | `@tuttiai/playwright` | 0.1.2 | 12 | `network`, `browser` | Browser automation: navigate, click, type, screenshot |
+| [postgres](https://github.com/tuttiai/tutti/tree/main/voices/postgres) | `@tuttiai/postgres` | 0.1.1 | 8 | `network` | Query and inspect a PostgreSQL database (read-only by default) |
+| [rag](https://github.com/tuttiai/tutti/tree/main/voices/rag) | `@tuttiai/rag` | 0.1.1 | 4 | `network` | Retrieval-augmented generation over your own docs |
+| [sandbox](https://github.com/tuttiai/tutti/tree/main/voices/sandbox) | `@tuttiai/sandbox` | 0.1.1 | 5 | `shell` | Execute TypeScript, Python, or Bash in a sandboxed subprocess |
+| [sender](https://github.com/tuttiai/tutti/tree/main/voices/sender) | `@tuttiai/sender` | 0.1.0 | 14 | `network` | Subscribers, groups and campaigns in Sender (sender.net) |
+| [slack](https://github.com/tuttiai/tutti/tree/main/voices/slack) | `@tuttiai/slack` | 0.1.1 | 11 | `network` | Read, post and moderate Slack messages via a bot token |
+| [stripe](https://github.com/tuttiai/tutti/tree/main/voices/stripe) | `@tuttiai/stripe` | 0.1.0 | 27 | `network` | Customers, payments, subscriptions, invoices, balance |
+| [telegram](https://github.com/tuttiai/tutti/tree/main/voices/telegram) | `@tuttiai/telegram` | 0.1.0 | 4 | `network` | Read, post and moderate Telegram messages |
+| [twitter](https://github.com/tuttiai/tutti/tree/main/voices/twitter) | `@tuttiai/twitter` | 0.1.0 | 9 | `network` | Post, read, search and manage Twitter/X content |
+| [web](https://github.com/tuttiai/tutti/tree/main/voices/web) | `@tuttiai/web` | 0.1.1 | 3 | `network` | Search the web, fetch pages, read sitemaps |
+| [whatsapp](https://github.com/tuttiai/tutti/tree/main/voices/whatsapp) | `@tuttiai/whatsapp` | 0.1.0 | 2 | `network` | Send and receive WhatsApp messages via Meta's Cloud API |
 
 Install any official voice with the shorthand name:
 
