@@ -17,7 +17,7 @@ A **voice** is an npm package that gives an agent the ability to interact with a
 | [filesystem](https://github.com/tuttiai/tutti/tree/main/voices/filesystem) | `@tuttiai/filesystem` | 0.1.1 | 7 | `filesystem` | Read, write, search, and manage local files |
 | [github](https://github.com/tuttiai/tutti/tree/main/voices/github) | `@tuttiai/github` | 0.2.0 | 23 | `network` | Issues, PRs, repos, code search via the GitHub API |
 | [knowledge](https://github.com/tuttiai/tutti/tree/main/voices/knowledge) | `@tuttiai/knowledge` | 0.1.0 | 2 | `network` | Search knowledge bases held by a knowledge service (read-only) |
-| [mcp](https://github.com/tuttiai/tutti/tree/main/voices/mcp) | `@tuttiai/mcp` | 0.1.2 | dynamic | `network` | Wrap any MCP server — tools discovered at runtime |
+| [mcp](https://github.com/tuttiai/tutti/tree/main/voices/mcp) | `@tuttiai/mcp` | 0.1.2 | dynamic | `network` | Wrap any MCP server: tools discovered at runtime |
 | [notion](https://github.com/tuttiai/tutti/tree/main/voices/notion) | `@tuttiai/notion` | 0.1.0 | 8 | `network` | Search, read and write shared Notion pages and databases |
 | [playwright](https://github.com/tuttiai/tutti/tree/main/voices/playwright) | `@tuttiai/playwright` | 0.1.2 | 12 | `network`, `browser` | Browser automation: navigate, click, type, screenshot |
 | [postgres](https://github.com/tuttiai/tutti/tree/main/voices/postgres) | `@tuttiai/postgres` | 0.1.1 | 8 | `network` | Query and inspect a PostgreSQL database (read-only by default) |
