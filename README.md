@@ -256,6 +256,7 @@ describe("getWeatherTool", () => {
 
 ```ts
 // Contract test: voice implements the interface
+import { describe, expect, it } from "vitest";
 import { WeatherVoice } from "../src/index.js";
 
 describe("WeatherVoice", () => {
@@ -270,26 +271,63 @@ describe("WeatherVoice", () => {
 
 ```ts
 // Integration test: end-to-end through AgentRunner with a mock provider
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { AgentRunner, EventBus, InMemorySessionStore } from "@tuttiai/core";
-import { createMockProvider, toolUseResponse, textResponse }
-  from "@tuttiai/core/tests/helpers/mock-provider";
+import type { ChatResponse, LLMProvider } from "@tuttiai/core";
+import { WeatherVoice } from "../src/index.js";
 
-const provider = createMockProvider([
-  toolUseResponse("get_weather", { city: "London", units: "celsius" }),
-  textResponse("It's 18°C in London."),
-]);
+// Returns the scripted responses in order. Streaming is off, so stream() is never called.
+function mockProvider(responses: ChatResponse[]): LLMProvider {
+  let i = 0;
+  return {
+    chat: async () => {
+      const next = responses[i++];
+      if (!next) throw new Error("mock provider: no more responses");
+      return next;
+    },
+    stream: async function* () {
+      throw new Error("mock provider: streaming is not used in this test");
+    },
+  };
+}
 
-const runner = new AgentRunner(provider, new EventBus(), new InMemorySessionStore());
-const result = await runner.run(
-  {
-    name: "test",
-    system_prompt: "Test",
-    voices: [new WeatherVoice()],
-    permissions: ["network"],
-  },
-  "What's the weather in London?",
-);
-expect(result.output).toBe("It's 18°C in London.");
+afterEach(() => {
+  vi.unstubAllGlobals();
+});
+
+describe("WeatherVoice through AgentRunner", () => {
+  it("calls get_weather and returns the model's answer", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () =>
+      new Response(JSON.stringify({ temp: 18, condition: "cloudy" }), { status: 200 }),
+    ));
+    const provider = mockProvider([
+      {
+        id: "resp-1",
+        content: [{ type: "tool_use", id: "tool-1", name: "get_weather", input: { city: "London", units: "celsius" } }],
+        stop_reason: "tool_use",
+        usage: { input_tokens: 15, output_tokens: 10 },
+      },
+      {
+        id: "resp-2",
+        content: [{ type: "text", text: "It's 18°C in London." }],
+        stop_reason: "end_turn",
+        usage: { input_tokens: 10, output_tokens: 5 },
+      },
+    ]);
+
+    const runner = new AgentRunner(provider, new EventBus(), new InMemorySessionStore());
+    const result = await runner.run(
+      {
+        name: "test",
+        system_prompt: "Test",
+        voices: [new WeatherVoice()],
+        permissions: ["network"],
+      },
+      "What's the weather in London?",
+    );
+    expect(result.output).toBe("It's 18°C in London.");
+  });
+});
 ```
 
 Coverage targets matching the official voices: **80% lines, 80% functions, 70% branches.** No real API calls in tests — mock everything.
