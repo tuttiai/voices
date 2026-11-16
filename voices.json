@@ -114,7 +114,7 @@
     {
       "name": "sandbox",
       "package": "@tuttiai/sandbox",
-      "description": "Secure code execution for TypeScript, Python, and Bash in a sandboxed subprocess",
+      "description": "Code execution for TypeScript, Python, and Bash in a subprocess with a per-session working directory. Not a security boundary: code runs as the server's own user.",
       "repo": "https://github.com/tuttiai/tutti/tree/main/voices/sandbox",
       "version": "0.1.1",
       "author": "tuttiai",
