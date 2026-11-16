@@ -1,8 +1,8 @@
-# Tutti Voices — The Repertoire
+# Tutti Voices: The Repertoire
 
 The community registry of voices for the [Tutti](https://github.com/tuttiai/tutti) framework.
 
-A **voice** is an npm package that gives an agent the ability to interact with an external system — a database, an API, the filesystem, a browser, anything reachable from Node. This repository is the index: machine-readable in [`voices.json`](./voices.json) and human-readable in the table below. Anyone can build a voice, publish it to npm, and open a PR to register it here.
+A **voice** is an npm package that gives an agent the ability to interact with an external system: a database, an API, the filesystem, a browser, anything reachable from Node. This repository is the index: machine-readable in [`voices.json`](./voices.json) and human-readable in the table below. Anyone can build a voice, publish it to npm, and open a PR to register it here.
 
 ---
 
@@ -50,8 +50,8 @@ npx tutti-ai add @yourscope/your-voice
 
 The full reference lives in the Tutti docs:
 
-- [Building a Voice](https://tutti-ai.com/docs/guides/building-a-voice/) — quick walkthrough
-- [Voice Authoring Guide](https://tutti-ai.com/docs/contributing/voice-authoring/) — comprehensive reference
+- [Building a Voice](https://tutti-ai.com/docs/guides/building-a-voice/) : quick walkthrough
+- [Voice Authoring Guide](https://tutti-ai.com/docs/contributing/voice-authoring/) : comprehensive reference
 
 The rest of this section is a self-contained crash course covering everything you need to publish a voice and get it merged into this registry.
 
@@ -75,14 +75,14 @@ A `Tool` is a single callable function the LLM can invoke:
 ```ts
 interface Tool<T = unknown> {
   name: string;                  // snake_case, verb-first (e.g. "list_issues")
-  description: string;           // shown to the LLM — be explicit
+  description: string;           // shown to the LLM: be explicit
   parameters: ZodType<T>;        // validated before execute() runs
   destructive?: boolean;         // true → automatically gated behind HITL approval
   execute(input: T, context: ToolContext): Promise<ToolResult>;
 }
 ```
 
-`Permission` is one of `"network"`, `"filesystem"`, `"shell"`, or `"browser"`. Be honest — only request what you actually need; users see these in their score file.
+`Permission` is one of `"network"`, `"filesystem"`, `"shell"`, or `"browser"`. Be honest: only request what you actually need; users see these in their score file.
 
 ### 2. Project layout
 
@@ -150,7 +150,7 @@ export const getWeatherTool: Tool<z.infer<typeof parameters>> = {
 Rules of thumb that keep voices safe and predictable:
 
 - **`execute()` never throws.** Catch every error path and return `{ content, is_error: true }` with a fix hint. The LLM uses the error message to decide what to do next; thrown exceptions abort the run.
-- **Validate every input with Zod.** Never trust LLM-generated tool arguments — schemas catch malformed types and unexpected fields before they reach your code.
+- **Validate every input with Zod.** Never trust LLM-generated tool arguments. Schemas catch malformed types and unexpected fields before they reach your code.
 - **Mark destructive tools.** If the side effect is hard to undo (sending a message, deleting a row, charging a card), set `destructive: true`. Tutti's runtime auto-pauses these for operator approval (HITL) when enabled.
 - **Use `.describe()` on every Zod field.** That text becomes the parameter doc the LLM sees.
 - **No `process.env` in tool bodies.** Read secrets through the runtime's `SecretsManager` (or accept them as voice constructor options). This keeps them out of logs and event payloads.
@@ -173,7 +173,7 @@ export class WeatherVoice implements Voice {
 export { getWeatherTool };
 ```
 
-If your voice needs to open a connection (DB pool, browser, websocket), do it lazily on first tool call or in `setup()`, and clean up in `teardown()`. Voices are constructed eagerly during score loading, so synchronous constructors must not throw on missing config — return an `is_error` from each tool instead. This is the "lazy + fail-soft" pattern every official voice uses.
+If your voice needs to open a connection (DB pool, browser, websocket), do it lazily on first tool call or in `setup()`, and clean up in `teardown()`. Voices are constructed eagerly during score loading, so synchronous constructors must not throw on missing config: return an `is_error` from each tool instead. This is the "lazy + fail-soft" pattern every official voice uses.
 
 ### 5. Configure the package
 
@@ -214,7 +214,7 @@ export default defineConfig({
 
 ### 6. Test it
 
-Three layers — all three should exist before publishing:
+Three layers; all three should exist before publishing:
 
 ```ts
 // Unit test: each tool in isolation
@@ -330,7 +330,7 @@ describe("WeatherVoice through AgentRunner", () => {
 });
 ```
 
-Coverage targets matching the official voices: **80% lines, 80% functions, 70% branches.** No real API calls in tests — mock everything.
+Coverage targets matching the official voices: **80% lines, 80% functions, 70% branches.** No real API calls in tests: mock everything.
 
 ### 7. Publish to npm
 
@@ -340,7 +340,7 @@ Pre-flight checklist:
 - [ ] All Zod parameters use `.describe()` annotations
 - [ ] `required_permissions` is accurate and minimal
 - [ ] Destructive tools are flagged with `destructive: true`
-- [ ] `execute()` never throws — every error path returns `{ content, is_error: true }`
+- [ ] `execute()` never throws: every error path returns `{ content, is_error: true }`
 - [ ] Tests pass with ≥80% coverage
 - [ ] No secrets, `.env` files, or credentials in the published package
 - [ ] `npm audit --audit-level=high` is clean
