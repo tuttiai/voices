@@ -218,21 +218,37 @@ Three layers — all three should exist before publishing:
 
 ```ts
 // Unit test: each tool in isolation
-import { describe, it, expect } from "vitest";
-import { getWeatherTool } from "../src/tools/get-weather.js";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { getWeatherTool } from "../../src/tools/get-weather.js";
 
 const ctx = { session_id: "test", agent_name: "test" };
 
+afterEach(() => {
+  vi.unstubAllGlobals();
+});
+
 describe("getWeatherTool", () => {
   it("returns formatted weather", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () =>
+      new Response(JSON.stringify({ temp: 18, condition: "cloudy" }), { status: 200 }),
+    ));
     const result = await getWeatherTool.execute({ city: "London", units: "celsius" }, ctx);
     expect(result.content).toContain("London");
     expect(result.is_error).toBeUndefined();
   });
 
-  it("returns is_error on API failure", async () => {
-    // mock fetch → 500
+  it("returns is_error when the API answers 500", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("upstream error", { status: 500 })));
     const result = await getWeatherTool.execute({ city: "Atlantis", units: "celsius" }, ctx);
+    expect(result.is_error).toBe(true);
+    expect(result.content).toContain("500");
+  });
+
+  it("returns is_error when the network fails", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => {
+      throw new TypeError("fetch failed");
+    }));
+    const result = await getWeatherTool.execute({ city: "London", units: "celsius" }, ctx);
     expect(result.is_error).toBe(true);
   });
 });
