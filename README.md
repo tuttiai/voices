@@ -117,6 +117,9 @@ const parameters = z.object({
     .describe("Temperature units"),
 });
 
+// The API body is external input, so it is validated too.
+const weatherBody = z.object({ temp: z.number(), condition: z.string() });
+
 export const getWeatherTool: Tool<z.infer<typeof parameters>> = {
   name: "get_weather",
   description: "Get the current weather for a city",
@@ -132,7 +135,7 @@ export const getWeatherTool: Tool<z.infer<typeof parameters>> = {
           is_error: true,
         };
       }
-      const data = await response.json();
+      const data = weatherBody.parse(await response.json());
       return { content: `Weather in ${input.city}: ${data.temp}° ${input.units}, ${data.condition}` };
     } catch (err) {
       return {
