@@ -1,8 +1,8 @@
-# Tutti Voices — The Repertoire
+# Tutti Voices: The Repertoire
 
 The community registry of voices for the [Tutti](https://github.com/tuttiai/tutti) framework.
 
-A **voice** is an npm package that gives an agent the ability to interact with an external system — a database, an API, the filesystem, a browser, anything reachable from Node. This repository is the index: machine-readable in [`voices.json`](./voices.json) and human-readable in the table below. Anyone can build a voice, publish it to npm, and open a PR to register it here.
+A **voice** is an npm package that gives an agent the ability to interact with an external system: a database, an API, the filesystem, a browser, anything reachable from Node. This repository is the index: machine-readable in [`voices.json`](./voices.json) and human-readable in the table below. Anyone can build a voice, publish it to npm, and open a PR to register it here.
 
 ---
 
@@ -50,8 +50,8 @@ npx tutti-ai add @yourscope/your-voice
 
 The full reference lives in the Tutti docs:
 
-- [Building a Voice](https://tutti-ai.com/docs/guides/building-a-voice/) — quick walkthrough
-- [Voice Authoring Guide](https://tutti-ai.com/docs/contributing/voice-authoring/) — comprehensive reference
+- [Building a Voice](https://tutti-ai.com/docs/guides/building-a-voice/): quick walkthrough
+- [Voice Authoring Guide](https://tutti-ai.com/docs/contributing/voice-authoring/): comprehensive reference
 
 The rest of this section is a self-contained crash course covering everything you need to publish a voice and get it merged into this registry.
 
@@ -75,14 +75,14 @@ A `Tool` is a single callable function the LLM can invoke:
 ```ts
 interface Tool<T = unknown> {
   name: string;                  // snake_case, verb-first (e.g. "list_issues")
-  description: string;           // shown to the LLM — be explicit
+  description: string;           // shown to the LLM: be explicit
   parameters: ZodType<T>;        // validated before execute() runs
   destructive?: boolean;         // true → automatically gated behind HITL approval
   execute(input: T, context: ToolContext): Promise<ToolResult>;
 }
 ```
 
-`Permission` is one of `"network"`, `"filesystem"`, `"shell"`, or `"browser"`. Be honest — only request what you actually need; users see these in their score file.
+`Permission` is one of `"network"`, `"filesystem"`, `"shell"`, or `"browser"`. Be honest: only request what you actually need; users see these in their score file.
 
 ### 2. Project layout
 
@@ -117,6 +117,9 @@ const parameters = z.object({
     .describe("Temperature units"),
 });
 
+// The API body is external input, so it is validated too.
+const weatherBody = z.object({ temp: z.number(), condition: z.string() });
+
 export const getWeatherTool: Tool<z.infer<typeof parameters>> = {
   name: "get_weather",
   description: "Get the current weather for a city",
@@ -132,7 +135,7 @@ export const getWeatherTool: Tool<z.infer<typeof parameters>> = {
           is_error: true,
         };
       }
-      const data = await response.json();
+      const data = weatherBody.parse(await response.json());
       return { content: `Weather in ${input.city}: ${data.temp}° ${input.units}, ${data.condition}` };
     } catch (err) {
       return {
@@ -147,7 +150,7 @@ export const getWeatherTool: Tool<z.infer<typeof parameters>> = {
 Rules of thumb that keep voices safe and predictable:
 
 - **`execute()` never throws.** Catch every error path and return `{ content, is_error: true }` with a fix hint. The LLM uses the error message to decide what to do next; thrown exceptions abort the run.
-- **Validate every input with Zod.** Never trust LLM-generated tool arguments — schemas catch malformed types and unexpected fields before they reach your code.
+- **Validate every input with Zod.** Never trust LLM-generated tool arguments. Schemas catch malformed types and unexpected fields before they reach your code.
 - **Mark destructive tools.** If the side effect is hard to undo (sending a message, deleting a row, charging a card), set `destructive: true`. Tutti's runtime auto-pauses these for operator approval (HITL) when enabled.
 - **Use `.describe()` on every Zod field.** That text becomes the parameter doc the LLM sees.
 - **No `process.env` in tool bodies.** Read secrets through the runtime's `SecretsManager` (or accept them as voice constructor options). This keeps them out of logs and event payloads.
@@ -170,7 +173,7 @@ export class WeatherVoice implements Voice {
 export { getWeatherTool };
 ```
 
-If your voice needs to open a connection (DB pool, browser, websocket), do it lazily on first tool call or in `setup()`, and clean up in `teardown()`. Voices are constructed eagerly during score loading, so synchronous constructors must not throw on missing config — return an `is_error` from each tool instead. This is the "lazy + fail-soft" pattern every official voice uses.
+If your voice needs to open a connection (DB pool, browser, websocket), do it lazily on first tool call or in `setup()`, and clean up in `teardown()`. Voices are constructed eagerly during score loading, so synchronous constructors must not throw on missing config: return an `is_error` from each tool instead. This is the "lazy + fail-soft" pattern every official voice uses.
 
 ### 5. Configure the package
 
@@ -211,25 +214,41 @@ export default defineConfig({
 
 ### 6. Test it
 
-Three layers — all three should exist before publishing:
+Three layers; all three should exist before publishing:
 
 ```ts
 // Unit test: each tool in isolation
-import { describe, it, expect } from "vitest";
-import { getWeatherTool } from "../src/tools/get-weather.js";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { getWeatherTool } from "../../src/tools/get-weather.js";
 
 const ctx = { session_id: "test", agent_name: "test" };
 
+afterEach(() => {
+  vi.unstubAllGlobals();
+});
+
 describe("getWeatherTool", () => {
   it("returns formatted weather", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () =>
+      new Response(JSON.stringify({ temp: 18, condition: "cloudy" }), { status: 200 }),
+    ));
     const result = await getWeatherTool.execute({ city: "London", units: "celsius" }, ctx);
     expect(result.content).toContain("London");
     expect(result.is_error).toBeUndefined();
   });
 
-  it("returns is_error on API failure", async () => {
-    // mock fetch → 500
+  it("returns is_error when the API answers 500", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => new Response("upstream error", { status: 500 })));
     const result = await getWeatherTool.execute({ city: "Atlantis", units: "celsius" }, ctx);
+    expect(result.is_error).toBe(true);
+    expect(result.content).toContain("500");
+  });
+
+  it("returns is_error when the network fails", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () => {
+      throw new TypeError("fetch failed");
+    }));
+    const result = await getWeatherTool.execute({ city: "London", units: "celsius" }, ctx);
     expect(result.is_error).toBe(true);
   });
 });
@@ -237,6 +256,7 @@ describe("getWeatherTool", () => {
 
 ```ts
 // Contract test: voice implements the interface
+import { describe, expect, it } from "vitest";
 import { WeatherVoice } from "../src/index.js";
 
 describe("WeatherVoice", () => {
@@ -251,29 +271,66 @@ describe("WeatherVoice", () => {
 
 ```ts
 // Integration test: end-to-end through AgentRunner with a mock provider
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { AgentRunner, EventBus, InMemorySessionStore } from "@tuttiai/core";
-import { createMockProvider, toolUseResponse, textResponse }
-  from "@tuttiai/core/tests/helpers/mock-provider";
+import type { ChatResponse, LLMProvider } from "@tuttiai/core";
+import { WeatherVoice } from "../src/index.js";
 
-const provider = createMockProvider([
-  toolUseResponse("get_weather", { city: "London", units: "celsius" }),
-  textResponse("It's 18°C in London."),
-]);
+// Returns the scripted responses in order. Streaming is off, so stream() is never called.
+function mockProvider(responses: ChatResponse[]): LLMProvider {
+  let i = 0;
+  return {
+    chat: async () => {
+      const next = responses[i++];
+      if (!next) throw new Error("mock provider: no more responses");
+      return next;
+    },
+    stream: async function* () {
+      throw new Error("mock provider: streaming is not used in this test");
+    },
+  };
+}
 
-const runner = new AgentRunner(provider, new EventBus(), new InMemorySessionStore());
-const result = await runner.run(
-  {
-    name: "test",
-    system_prompt: "Test",
-    voices: [new WeatherVoice()],
-    permissions: ["network"],
-  },
-  "What's the weather in London?",
-);
-expect(result.output).toBe("It's 18°C in London.");
+afterEach(() => {
+  vi.unstubAllGlobals();
+});
+
+describe("WeatherVoice through AgentRunner", () => {
+  it("calls get_weather and returns the model's answer", async () => {
+    vi.stubGlobal("fetch", vi.fn(async () =>
+      new Response(JSON.stringify({ temp: 18, condition: "cloudy" }), { status: 200 }),
+    ));
+    const provider = mockProvider([
+      {
+        id: "resp-1",
+        content: [{ type: "tool_use", id: "tool-1", name: "get_weather", input: { city: "London", units: "celsius" } }],
+        stop_reason: "tool_use",
+        usage: { input_tokens: 15, output_tokens: 10 },
+      },
+      {
+        id: "resp-2",
+        content: [{ type: "text", text: "It's 18°C in London." }],
+        stop_reason: "end_turn",
+        usage: { input_tokens: 10, output_tokens: 5 },
+      },
+    ]);
+
+    const runner = new AgentRunner(provider, new EventBus(), new InMemorySessionStore());
+    const result = await runner.run(
+      {
+        name: "test",
+        system_prompt: "Test",
+        voices: [new WeatherVoice()],
+        permissions: ["network"],
+      },
+      "What's the weather in London?",
+    );
+    expect(result.output).toBe("It's 18°C in London.");
+  });
+});
 ```
 
-Coverage targets matching the official voices: **80% lines, 80% functions, 70% branches.** No real API calls in tests — mock everything.
+Coverage targets matching the official voices: **80% lines, 80% functions, 70% branches.** No real API calls in tests: mock everything.
 
 ### 7. Publish to npm
 
@@ -283,7 +340,7 @@ Pre-flight checklist:
 - [ ] All Zod parameters use `.describe()` annotations
 - [ ] `required_permissions` is accurate and minimal
 - [ ] Destructive tools are flagged with `destructive: true`
-- [ ] `execute()` never throws — every error path returns `{ content, is_error: true }`
+- [ ] `execute()` never throws: every error path returns `{ content, is_error: true }`
 - [ ] Tests pass with ≥80% coverage
 - [ ] No secrets, `.env` files, or credentials in the published package
 - [ ] `npm audit --audit-level=high` is clean
