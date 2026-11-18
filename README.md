@@ -22,7 +22,7 @@ A **voice** is an npm package that gives an agent the ability to interact with a
 | [playwright](https://github.com/tuttiai/tutti/tree/main/voices/playwright) | `@tuttiai/playwright` | 0.1.2 | 12 | `network`, `browser` | Browser automation: navigate, click, type, screenshot |
 | [postgres](https://github.com/tuttiai/tutti/tree/main/voices/postgres) | `@tuttiai/postgres` | 0.1.1 | 8 | `network` | Query and inspect a PostgreSQL database (read-only by default) |
 | [rag](https://github.com/tuttiai/tutti/tree/main/voices/rag) | `@tuttiai/rag` | 0.1.1 | 4 | `network` | Retrieval-augmented generation over your own docs |
-| [sandbox](https://github.com/tuttiai/tutti/tree/main/voices/sandbox) | `@tuttiai/sandbox` | 0.1.1 | 5 | `shell` | Execute TypeScript, Python, or Bash in a sandboxed subprocess |
+| [sandbox](https://github.com/tuttiai/tutti/tree/main/voices/sandbox) | `@tuttiai/sandbox` | 0.1.1 | 5 | `shell` | Code execution for TypeScript, Python, and Bash in a subprocess with a per-session working directory. Not a security boundary: code runs as the server's own user. |
 | [sender](https://github.com/tuttiai/tutti/tree/main/voices/sender) | `@tuttiai/sender` | 0.1.0 | 14 | `network` | Subscribers, groups and campaigns in Sender (sender.net) |
 | [slack](https://github.com/tuttiai/tutti/tree/main/voices/slack) | `@tuttiai/slack` | 0.1.1 | 11 | `network` | Read, post and moderate Slack messages via a bot token |
 | [stripe](https://github.com/tuttiai/tutti/tree/main/voices/stripe) | `@tuttiai/stripe` | 0.1.0 | 27 | `network` | Customers, payments, subscriptions, invoices, balance |
