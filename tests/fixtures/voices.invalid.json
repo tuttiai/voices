@@ -1,0 +1,16 @@
+{
+  "$schema": "../../voices.schema.json",
+  "official": [
+    {
+      "name": "filesystem",
+      "package": "@tuttiai/filesystem",
+      "description": "Read, write, search, and manage files on the local filesystem",
+      "repo": "https://github.com/tuttiai/tutti/tree/main/voices/filesystem",
+      "version": "0.1.1",
+      "author": "tuttiai",
+      "permissions": ["filesystem"],
+      "tools_count": "7"
+    }
+  ],
+  "community": []
+}
