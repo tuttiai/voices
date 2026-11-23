@@ -1,0 +1,45 @@
+name: Validate voices
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  schema:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      AJV: ${{ runner.temp }}/ajv/node_modules/.bin/ajv
+    steps:
+      - name: Check out
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+
+      - name: Set up Node
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+
+      # Installed outside the checkout and called by its full path, never through npx.
+      - name: Install ajv-cli 5.0.0
+        run: |
+          npm install --no-save --no-package-lock --ignore-scripts --no-audit --no-fund --prefix "$RUNNER_TEMP/ajv" ajv-cli@5.0.0
+          node -p "'ajv-cli ' + require(process.env.RUNNER_TEMP + '/ajv/node_modules/ajv-cli/package.json').version"
+
+      - name: Validate voices.json
+        run: |
+          "$AJV" validate -s voices.schema.json -d voices.json --all-errors --errors=text
+
+      # Guards against a validator that exits 0 on invalid data.
+      - name: Assert the invalid fixture is rejected
+        run: |
+          set -u
+          if out=$("$AJV" validate -s voices.schema.json -d tests/fixtures/voices.invalid.json --all-errors --errors=text 2>&1); then
+            echo "$out"; echo "::error::invalid fixture passed validation"; exit 1
+          fi
+          echo "$out"
+          echo "$out" | grep -q "tests/fixtures/voices.invalid.json invalid" || { echo "::error::validation failed for a reason other than invalid data"; exit 1; }
